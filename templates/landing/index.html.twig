@@ -1,0 +1,128 @@
+{# {% extends 'base.html.twig' %} #}
+
+{# {% block title %}Оставьте заявку{% endblock %} #}
+
+{# {% block stylesheets %} #}
+{#    {{ parent() }} #}
+{#    <style> #}
+{#        .is-invalid { #}
+{#            border: 1px solid red; #}
+{#        } #}
+{#    </style> #}
+{# {% endblock %} #}
+
+{# {% block body %} #}
+{#    <div class="container"> #}
+{#        <h1 class="text-center">Оставьте заявку</h1> #}
+{#        {% if isSubmitted and isFormValid %} #}
+{#            <div class="alert alert-success" role="alert"> #}
+{#                Заявка успешно отправлена! #}
+{#            </div> #}
+{#        {% endif %} #}
+{#        <form method="post" action="{{ path('landing') }}" class="needs-validation" novalidate> #}
+{#            {{ form_start(form) }} #}
+{#            <div class="row"> #}
+{#                <div class="col-md-6 mb-3"> #}
+{#                    {{ form_label(form.name) }} #}
+{#                    {{ form_widget(form.name, { 'attr': {'class': 'form-control', 'placeholder': 'Имя', 'required': true} }) }} #}
+{#                </div> #}
+{#                <div class="col-md-6 mb-3"> #}
+{#                    {{ form_label(form.lastName) }} #}
+{#                    {{ form_widget(form.lastName, { 'attr': {'class': 'form-control', 'placeholder': 'Фамилия', 'required': true} }) }} #}
+{#                </div> #}
+{#            </div> #}
+{#            <div class="mb-3"> #}
+{#                {{ form_label(form.phone) }} #}
+{#                {{ form_widget(form.phone, { 'attr': {'class': 'form-control', 'placeholder': 'Телефон', 'required': true} }) }} #}
+{#            </div> #}
+{#            <div class="mb-3"> #}
+{#                {{ form_label(form.email) }} #}
+{#                {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email', 'required': true} }) }} #}
+{#            </div> #}
+{#            <div class="mb-3"> #}
+{#                {{ form_label(form.comment) }} #}
+{#                {{ form_widget(form.comment, { 'attr': {'class': 'form-control', 'placeholder': 'Комментарий'} }) }} #}
+{#            </div> #}
+{#            <hr class="mb-4"> #}
+{#            <button class="btn btn-primary btn-lg btn-block" type="submit" id="submit-button">Отправить заявку</button> #}
+{#            {{ form_end(form) }} #}
+{#        </form> #}
+{#    </div> #}
+
+{#    <!-- Error Modal --> #}
+{#    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true"> #}
+{#        <div class="modal-dialog"> #}
+{#            <div class="modal-content"> #}
+{#                <div class="modal-header"> #}
+{#                    <h5 class="modal-title" id="errorModalLabel">Ошибка</h5> #}
+{#                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> #}
+{#                </div> #}
+{#                <div class="modal-body"> #}
+{#                    Пожалуйста, заполните все обязательные поля. #}
+{#                </div> #}
+{#                <div class="modal-footer"> #}
+{#                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button> #}
+{#                </div> #}
+{#            </div> #}
+{#        </div> #}
+{#    </div> #}
+{# {% endblock %} #}
+
+{# {% block javascripts %} #}
+{#    {{ parent() }} #}
+{#    <!-- jQuery --> #}
+{#    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> #}
+{#    <!-- validation.js --> #}
+{#    <script src="{{ asset('js/validation.js') }}"></script> #}
+{# {% endblock %} #}
+
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card border rounded shadow p-4" style="background-color: #f8f8f8;">
+            <h1 class="card-title text-center">Оставьте заявку</h1>
+
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+            {{ form_errors(form) }}
+
+            <div class="form-group">
+                {{ form_label(form.name, 'Имя', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control', 'pattern': '[a-zA-Zа-яА-ЯёЁ]+', 'title': 'Только буквы'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.lastName, 'Фамилия', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'pattern': '[a-zA-Zа-яА-ЯёЁ]+', 'title': 'Только буквы'}}) }}
+                {{ form_errors(form.lastName) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.phone, 'Телефон', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.phone, {'attr': {'class': 'form-control', 'type': 'tel', 'title': 'Введите правильный номер телефона'}}) }}
+                {{ form_errors(form.phone) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'type': 'email'}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.comment, 'Сообщение', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.comment, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.comment) }}
+            </div>
+
+            {{ form_widget(form._token) }}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-3">
+                <a href="{{ path('app_landing_page') }}" class="btn btn-secondary me-md-2">Отмена</a>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
