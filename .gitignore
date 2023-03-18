@@ -1,0 +1,33 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+.idea
+/bin
+/config
+/node_modules
+/public/bundles/
+/tests
+/translations
+/var/
+/vendor/
+.env
+.env.test
+composer.lock
+package.json
+package-lock.json
+phpunit.xml.dist
+symfony.lock
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
