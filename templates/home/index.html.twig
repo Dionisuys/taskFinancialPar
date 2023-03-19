@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+        <div class="card border rounded shadow p-2 p-md-4" style="background-color: #f8f8f8; width: 30%;">
+            <h1 class="card-title text-center">Добро пожаловать в моё приложение!</h1>
+            <div class="d-flex justify-content-between">
+                <a href="{{ path('new_request') }}" class="btn btn-secondary">Оставить новую заявку</a>
+                <a href="{{ path('login') }}" class="btn btn-primary">Войти как менеджер</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

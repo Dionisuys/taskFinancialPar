@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Список заявок</h1>
+        {% for request in requests %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Клиент: {{ request.getClient().getName() }} {{ request.getClient().getLastName() }}</h5>
+                    <p class="card-text">Телефон: {{ request.getClient().getPhone() }}</p>
+                    <p class="card-text">Email: {{ request.getClient().getEmail() }}</p>
+                    <p class="card-text">Комментарий клиента: {{ request.getComment() }}</p>
+                    <p class="card-text">Комментарий менеджера: {{ request.getManagerComment() }}</p>
+                    {% if request.getStatus() == 'new' %}
+                        <p class="card-text">Статус: Новая</p>
+                    {% elseif request.getStatus() == 'in_progress' %}
+                        <p class="card-text">Статус: В работе</p>
+                    {% elseif request.getStatus() == 'completed' %}
+                        <p class="card-text">Статус: Выполнена</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

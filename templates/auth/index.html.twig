@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card border rounded shadow p-4" style="background-color: #f8f8f8;">
+            <h1 class="card-title text-center">Авторизация менеджера</h1>
+
+            {% if app.session.flashBag.get('error') %}
+                <div class="alert alert-danger text-center">{{ app.session.flashBag.get('error')[0] }}</div>
+            {% endif %}
+
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+            {{ form_errors(form) }}
+
+            <div class="form-group">
+                {{ form_label(form.username, 'Имя пользователя', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.username, {'attr': {'class': 'form-control', 'autofocus': 'autofocus'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.password, 'Пароль', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            {{ form_widget(form._token) }}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-3">
+                <a href="{{ path('home') }}" class="btn btn-secondary me-md-2 w-25">Отмена</a>
+                <button type="submit" class="btn btn-primary w-25">Войти</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
