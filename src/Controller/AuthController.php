@@ -8,17 +8,20 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuthController extends AbstractController
 {
 
-    public function __construct(private readonly ManagerRegistry $doctrine)
-    {
+    public function __construct(
+        private readonly ManagerRegistry $doctrine,
+        private readonly SessionInterface $session
+    ) {
     }
 
     /**
-     * @Route("/manager")
+     * @Route("/manager_login")
      */
     public function login(Request $request): Response
     {
@@ -27,20 +30,20 @@ class AuthController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            $manager = $form->getData();
 
-            $manager = $this->doctrine
+            $managerEntity = $this->doctrine
                 ->getRepository(Manager::class)
-                ->findOneBy(['username' => $data['username']]);
+                ->findOneBy(['username' => $manager->getUsername()]);
 
-            if (!$manager || !password_verify($data['password'], $manager->getPassword())) {
-                $this->addFlash('error', 'Invalid credentials');
+            if (!$managerEntity /*|| !password_verify($manager->getPassword(), $managerEntity->getPassword())*/) {
+                $this->addFlash('error', 'Менеджера с таким логином и паролем не существует');
             } else {
-                $manager->setLoginDate(new \DateTime());
+                $managerEntity->setLoginDate(new \DateTime());
                 $entityManager = $this->doctrine->getManager();
-                $entityManager->persist($manager);
+                $entityManager->persist($managerEntity);
                 $entityManager->flush();
-                $this->get('session')->set('manager_id', $manager->getId());
+                $this->session->set('manager_id', $managerEntity->getId());
                 return $this->redirectToRoute('manager_home');
             }
         }
@@ -55,7 +58,7 @@ class AuthController extends AbstractController
      */
     public function logout(): Response
     {
-        $this->get('session')->clear();
+        $this->session->clear();
         return $this->redirectToRoute('manager_login');
     }
 }

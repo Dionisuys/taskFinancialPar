@@ -16,7 +16,9 @@ class ManagerController extends AbstractController
     {
     }
 
-    #[Route('/manager/{username}', name: 'manager')]
+    /**
+     * @Route("/manager_home")
+     */
     public function index(string $username, Request $request): Response
     {
         // Получаем менеджера по его имени пользователя

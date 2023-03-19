@@ -29,6 +29,6 @@ class HomeController extends AbstractController
      */
     public function login(): Response
     {
-        return $this->redirectToRoute('manager');
+        return $this->redirectToRoute('manager_login');
     }
 }
