@@ -2,15 +2,6 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Обработка заявок</title>
-	<!-- Подключение библиотеки Bootstrap 5 -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-	<style>
-		body {
-			background-color: black;
-			color: white;
-		}
-	</style>
 </head>
 <body>
 	<div class="container">
